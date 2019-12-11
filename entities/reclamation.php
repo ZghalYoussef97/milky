@@ -1,74 +1,64 @@
 <?PHP
 class reclamation{
-	private $ref_rec;
-	private $titre_rec;
-	private $email_rec;
-	private $message_rec;
-	private $nom_client;
+	private $ref;
+	private $nom;
+	private $email;
+	private $message;
+	private $etat;
 	private $date_rec;
-	function __construct($titre_rec,$email_rec,$message_rec,$nom_client,$date_rec){
-
-		$this->titre_rec=$titre_rec;
-		$this->email_rec=$email_rec;
-		$this->message_rec=$message_rec;
-		$this->nom_client=$nom_client;
+	
+	
+	function __construct($ref,$nom,$email,$message,$etat,$date_rec){
+		$this->ref=$ref;
+		$this->nom=$nom;
+		$this->email=$email;
+		$this->message=$message;
+		$this->etat=$etat;
 		$this->date_rec=$date_rec;
 	}
 	
-	public function getRef_rec()
-	{
-		return $this->ref_rec;
-	}
-	public function setRef_rec($ref_rec)
-	{
-		$this->ref_rec = $ref_rec;
+    function getref(){
+		return $this->ref;
 	}
 	
-	public function getTitre_rec()
-	{
-		return $this->titre_rec;
+	function getnom(){
+		return $this->nom;
 	}
-	public function setTitre_rec($titre_rec)
-	{
-		$this->titre_rec = $titre_rec;
+	function getemail(){
+		return $this->email;
 	}
-	
-	public function getEmail_rec()
-	{
-		return $this->email_rec;
-	}
-	public function setEmail_rec($email_rec)
-	{
-		$this->email_rec = $email_rec;
+	function getmessage(){
+		return $this->message;
 	}
 	
-	public function getMessage_rec()
-	{
-		return $this->message_rec;
+	 function getetat(){
+		return $this->etat;
 	}
-	public function setMessage_rec($message_rec)
-	{
-		$this->message_rec = $message_rec;
-	}
-	
-	public function getDate_rec()
-	{
+    
+	 function getdate_rec(){
 		return $this->date_rec;
 	}
-	public function setDate_rec($date_rec)
-	{
-		$this->date_rec = $date_rec;
+	
+	function setnom($nom){
+		$this->nom=$nom;
+	}
+	function setemail($email){
+		$this->email=$email;
+	}
+	function setmessage($message){
+		$this->message=$message;
+	}
+	function setdate_rec($date_rec){
+		$this->date_rec=$date_rec;
 	}
 	
-	public function getNom_client()
-	{
-		return $this->nom_client;
-	}
-	public function setNom_client($nom_client)
-	{
-		$this->nom_client = $nom_client;
+	function setref($ref){
+		$this->ref=$ref;
 	}
 	
+	function setetat($etat){
+		$this->etat=$etat;
+	}
 }
 
 ?>

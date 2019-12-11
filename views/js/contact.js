@@ -56,12 +56,12 @@ $(document).ready(function(){
                         $('#contactForm').fadeTo( "slow", 0.15, function() {
                             $(this).find(':input').attr('disabled', 'disabled');
                             $(this).find('label').css('cursor','default');
-                            $('#success').fadeIn();
+                            $('#success').fadeIn()
                         })
                     },
                     error: function() {
                         $('#contactForm').fadeTo( "slow", 0.15, function() {
-                            $('#error').fadeIn();
+                            $('#error').fadeIn()
                         })
                     }
                 })

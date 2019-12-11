@@ -1,0 +1,41 @@
+<?PHP 
+include 'header.php';
+?>
+<script src="controle.js"> </script>
+<form method="POST" name="f"  action="ajouterPromotion.php" onsubmit="return verif()">
+    <div>
+          <div>
+              <label >Id produit*</label>
+              <div >
+                <input type="number" value="idProduit" name="idProduit">
+              </div>
+            </div>
+
+            <div>
+              <label >Reduction*</label>
+              <div >
+                <input type="number" value="pourcentage"  name="pourcentage">
+                <span>99%</span>
+              </div>
+            </div>
+
+            <div>
+              <label >dateD*</label>
+              <div >
+                <input type="date" value="dateD"   name="dateD">
+              </div>
+            </div>
+           
+            <div>
+              <label >dateF*</label>
+              <div >
+                <input type="date" value="dateF"  name="dateF">
+              </div>
+            </div>
+        <input type="submit" name="ajouter" value="ajout">
+
+    </div>
+  </form>
+ <?PHP 
+include 'footer.php';
+?>

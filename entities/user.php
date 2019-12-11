@@ -1,17 +1,21 @@
-<?php
-class user{
-    private $username;
-    private $password;
-    private $email;
-    private $rang;
-    function __construct($username,$password,$email,$rang){
-        $this->username=$username;
-		$this->password=$password;
-        $this->email=$email;
-        $this->rang=$rang;
-    } 
+<?PHP
 
-    function getusername(){
+class User{
+	private $name;
+	private $username;
+	private $password;
+	private $email;
+	function __construct($name,$username,$password,$email){
+		$this->name=$name;
+		$this->username=$username;
+		$this->password=$password;
+		$this->email=$email;
+	}
+	
+	function getname(){
+		return $this->name;
+	}
+	function getusername(){
 		return $this->username;
 	}
 	function getpassword(){
@@ -19,10 +23,7 @@ class user{
 	}
 	function getemail(){
 		return $this->email;
-    }
-    function getrang(){
-        return $this->rang;
-    }
+	}
 
 	function setusername($username){
 		$this->username=$username;
@@ -32,14 +33,8 @@ class user{
 	}
 	function setemail($email){
 		$this->email=$email;
-    }
-    function setrang($rang){
-        $this->rand=$rang;
-    }
-
+	}
 
 }
-
-
 
 ?>
