@@ -25,5 +25,5 @@ unset($_SESSION['orderdetails']);
  	
 // 4. Destroy the session
 // session_destroy();
-redirect("index.php?logout=1");
+redirect("index.php");
 ?> 	 

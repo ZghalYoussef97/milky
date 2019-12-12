@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Aug 21, 2019 at 08:16 AM
--- Server version: 10.1.36-MariaDB
--- PHP Version: 5.6.38
+-- Hôte : 127.0.0.1:3306
+-- Généré le :  jeu. 28 nov. 2019 à 01:36
+-- Version du serveur :  5.7.26
+-- Version de PHP :  5.6.40
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,17 +19,18 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `db_ecommerce`
+-- Base de données :  `db_ecommerce`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `messagein`
+-- Structure de la table `messagein`
 --
 
-CREATE TABLE `messagein` (
-  `Id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `messagein`;
+CREATE TABLE IF NOT EXISTS `messagein` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
   `SendTime` datetime DEFAULT NULL,
   `ReceiveTime` datetime DEFAULT NULL,
   `MessageFrom` varchar(80) DEFAULT NULL,
@@ -40,11 +41,12 @@ CREATE TABLE `messagein` (
   `MessageParts` int(11) DEFAULT NULL,
   `MessagePDU` text,
   `Gateway` varchar(80) DEFAULT NULL,
-  `UserId` varchar(80) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `UserId` varchar(80) DEFAULT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `messagein`
+-- Déchargement des données de la table `messagein`
 --
 
 INSERT INTO `messagein` (`Id`, `SendTime`, `ReceiveTime`, `MessageFrom`, `MessageTo`, `SMSC`, `MessageText`, `MessageType`, `MessageParts`, `MessagePDU`, `Gateway`, `UserId`) VALUES
@@ -58,11 +60,12 @@ INSERT INTO `messagein` (`Id`, `SendTime`, `ReceiveTime`, `MessageFrom`, `Messag
 -- --------------------------------------------------------
 
 --
--- Table structure for table `messagelog`
+-- Structure de la table `messagelog`
 --
 
-CREATE TABLE `messagelog` (
-  `Id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `messagelog`;
+CREATE TABLE IF NOT EXISTS `messagelog` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
   `SendTime` datetime DEFAULT NULL,
   `ReceiveTime` datetime DEFAULT NULL,
   `StatusCode` int(11) DEFAULT NULL,
@@ -79,11 +82,13 @@ CREATE TABLE `messagelog` (
   `MessagePDU` text,
   `Connector` varchar(80) DEFAULT NULL,
   `UserId` varchar(80) DEFAULT NULL,
-  `UserInfo` text
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `UserInfo` text,
+  PRIMARY KEY (`Id`),
+  KEY `IDX_MessageId` (`MessageId`,`SendTime`)
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `messagelog`
+-- Déchargement des données de la table `messagelog`
 --
 
 INSERT INTO `messagelog` (`Id`, `SendTime`, `ReceiveTime`, `StatusCode`, `StatusText`, `MessageTo`, `MessageFrom`, `MessageText`, `MessageType`, `MessageId`, `ErrorCode`, `ErrorText`, `Gateway`, `MessageParts`, `MessagePDU`, `Connector`, `UserId`, `UserInfo`) VALUES
@@ -118,11 +123,12 @@ INSERT INTO `messagelog` (`Id`, `SendTime`, `ReceiveTime`, `StatusCode`, `Status
 -- --------------------------------------------------------
 
 --
--- Table structure for table `messageout`
+-- Structure de la table `messageout`
 --
 
-CREATE TABLE `messageout` (
-  `Id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `messageout`;
+CREATE TABLE IF NOT EXISTS `messageout` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
   `MessageTo` varchar(80) DEFAULT NULL,
   `MessageFrom` varchar(80) DEFAULT NULL,
   `MessageText` text,
@@ -134,26 +140,30 @@ CREATE TABLE `messageout` (
   `Scheduled` datetime DEFAULT NULL,
   `ValidityPeriod` int(11) DEFAULT NULL,
   `IsSent` tinyint(1) NOT NULL DEFAULT '0',
-  `IsRead` tinyint(1) NOT NULL DEFAULT '0'
+  `IsRead` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`Id`),
+  KEY `IDX_IsRead` (`IsRead`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tblautonumber`
+-- Structure de la table `tblautonumber`
 --
 
-CREATE TABLE `tblautonumber` (
-  `ID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `tblautonumber`;
+CREATE TABLE IF NOT EXISTS `tblautonumber` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `AUTOSTART` varchar(11) NOT NULL,
   `AUTOINC` int(11) NOT NULL,
   `AUTOEND` int(11) NOT NULL,
   `AUTOKEY` varchar(12) NOT NULL,
-  `AUTONUM` int(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `AUTONUM` int(30) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tblautonumber`
+-- Déchargement des données de la table `tblautonumber`
 --
 
 INSERT INTO `tblautonumber` (`ID`, `AUTOSTART`, `AUTOINC`, `AUTOEND`, `AUTOKEY`, `AUTONUM`) VALUES
@@ -163,39 +173,37 @@ INSERT INTO `tblautonumber` (`ID`, `AUTOSTART`, `AUTOINC`, `AUTOEND`, `AUTOKEY`,
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tblcategory`
+-- Structure de la table `tblcategory`
 --
 
-CREATE TABLE `tblcategory` (
-  `CATEGID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `tblcategory`;
+CREATE TABLE IF NOT EXISTS `tblcategory` (
+  `CATEGID` int(11) NOT NULL AUTO_INCREMENT,
   `CATEGORIES` varchar(255) NOT NULL,
-  `USERID` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `USERID` int(11) NOT NULL,
+  PRIMARY KEY (`CATEGID`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tblcategory`
+-- Déchargement des données de la table `tblcategory`
 --
 
 INSERT INTO `tblcategory` (`CATEGID`, `CATEGORIES`, `USERID`) VALUES
-(5, 'SHOES', 0),
-(11, 'BAGS', 0),
-(12, 'CLOTHING', 0),
-(13, 'INTERIORS', 0),
-(14, 'HOUSEHOLDS', 0),
-(15, 'FASHION', 0),
-(16, 'KIDS', 0),
-(17, 'WOMENS', 0),
-(18, 'MENS', 0),
-(19, 'SPORTSWEAR', 0);
+(1, 'POULET', 0),
+(5, 'POISSON', 0),
+(11, 'VIANDE', 0),
+(12, 'VEGETARIEN', 0),
+(13, 'COCKTAIL', 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tblcustomer`
+-- Structure de la table `tblcustomer`
 --
 
-CREATE TABLE `tblcustomer` (
-  `CUSTOMERID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `tblcustomer`;
+CREATE TABLE IF NOT EXISTS `tblcustomer` (
+  `CUSTOMERID` int(11) NOT NULL AUTO_INCREMENT,
   `FNAME` varchar(30) NOT NULL,
   `LNAME` varchar(30) NOT NULL,
   `MNAME` varchar(30) NOT NULL,
@@ -214,16 +222,17 @@ CREATE TABLE `tblcustomer` (
   `CUSPASS` varchar(90) NOT NULL,
   `CUSPHOTO` varchar(255) NOT NULL,
   `TERMS` tinyint(4) NOT NULL,
-  `DATEJOIN` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `DATEJOIN` date NOT NULL,
+  PRIMARY KEY (`CUSTOMERID`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tblcustomer`
+-- Déchargement des données de la table `tblcustomer`
 --
 
 INSERT INTO `tblcustomer` (`CUSTOMERID`, `FNAME`, `LNAME`, `MNAME`, `CUSHOMENUM`, `STREETADD`, `BRGYADD`, `CITYADD`, `PROVINCE`, `COUNTRY`, `DBIRTH`, `GENDER`, `PHONE`, `EMAILADD`, `ZIPCODE`, `CUSUNAME`, `CUSPASS`, `CUSPHOTO`, `TERMS`, `DATEJOIN`) VALUES
 (1, 'janobe', 'Palacios', '', '321', 'Coloso Street', 'brgy. 1', 'Kabankalan City', 'Negros Occidental', 'Philippines', '0000-00-00', 'Male', '+639956112920', '', 6111, 'kenjie@yahoo.com', '1dd4efc811372cd1efe855981a8863d10ddde1ca', 'customer_image/a1157016c5d8272126380b27a59e2e7e.jpg', 1, '2015-11-26'),
-(2, 'Mark Anthony', 'Geasin', '', '1234', 'paglaom', 'dancalan', 'ilog', 'negros occ', 'philippines', '0000-00-00', '', '091023333234', '', 6111, 'bboy', '0377588176145a8f0d837ff6e9bf0c1616268387', 'customer_image/10801930_959054964122877_391305007291646162_n.jpg', 1, '2015-11-26'),
+(2, 'Mark Anthony', 'Geasin', '', '1234', 'paglaom', 'dancalan', 'ilog', 'negros occ', 'philippines', '0000-00-00', '', '091023333234', '', 6111, 'bboy', 'azerty', 'customer_image/10801930_959054964122877_391305007291646162_n.jpg', 1, '2015-11-26'),
 (3, 'Jano', 'Palacios', '', '12312', 's', 'brgy 1', 'kabankalan city', 'negross occidental', 'philippines', '0000-00-00', 'Male', '21312312312', '', 6111, 'jan', '53199fa57fdf5676d03d89fbdd26e69a927766fc', 'customer_image/Tropical-Beach-Wallpaper.jpg', 1, '2017-12-08'),
 (4, 'Jamei', 'Laveste', '', '', '', '', 'kabankalan city', '', '', '0000-00-00', 'Female', '362656556', '', 0, 'jame', 'f144dcce05af4d40fa0aeba34b05f4472472a4de', 'customer_image/1351064148bpguarhW.jpg', 1, '2018-01-23'),
 (5, 'Jeanniebe', 'Palacios', '', '', '', '', 'Kab City', '', '', '0000-00-00', 'Female', '+639486457414', '', 0, 'bebe', 'd079a1c06803587ea09bff3f44a567e19169e7b5', '', 1, '2018-02-09'),
@@ -235,20 +244,25 @@ INSERT INTO `tblcustomer` (`CUSTOMERID`, `FNAME`, `LNAME`, `MNAME`, `CUSHOMENUM`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tblorder`
+-- Structure de la table `tblorder`
 --
 
-CREATE TABLE `tblorder` (
-  `ORDERID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `tblorder`;
+CREATE TABLE IF NOT EXISTS `tblorder` (
+  `ORDERID` int(11) NOT NULL AUTO_INCREMENT,
   `PROID` int(11) NOT NULL,
   `ORDEREDQTY` int(11) NOT NULL,
   `ORDEREDPRICE` double NOT NULL,
   `ORDEREDNUM` int(11) NOT NULL,
-  `USERID` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `USERID` int(11) NOT NULL,
+  PRIMARY KEY (`ORDERID`),
+  KEY `USERID` (`USERID`),
+  KEY `PROID` (`PROID`),
+  KEY `ORDEREDNUM` (`ORDEREDNUM`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tblorder`
+-- Déchargement des données de la table `tblorder`
 --
 
 INSERT INTO `tblorder` (`ORDERID`, `PROID`, `ORDEREDQTY`, `ORDEREDPRICE`, `ORDEREDNUM`, `USERID`) VALUES
@@ -259,10 +273,11 @@ INSERT INTO `tblorder` (`ORDERID`, `PROID`, `ORDEREDQTY`, `ORDEREDPRICE`, `ORDER
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tblproduct`
+-- Structure de la table `tblproduct`
 --
 
-CREATE TABLE `tblproduct` (
+DROP TABLE IF EXISTS `tblproduct`;
+CREATE TABLE IF NOT EXISTS `tblproduct` (
   `PROID` int(11) NOT NULL,
   `PRODESC` varchar(255) DEFAULT NULL,
   `INGREDIENTS` varchar(255) NOT NULL,
@@ -273,38 +288,43 @@ CREATE TABLE `tblproduct` (
   `IMAGES` varchar(255) DEFAULT NULL,
   `PROSTATS` varchar(30) DEFAULT NULL,
   `OWNERNAME` varchar(90) NOT NULL,
-  `OWNERPHONE` varchar(90) NOT NULL
+  `OWNERPHONE` varchar(90) NOT NULL,
+  PRIMARY KEY (`PROID`),
+  KEY `CATEGID` (`CATEGID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tblproduct`
+-- Déchargement des données de la table `tblproduct`
 --
 
 INSERT INTO `tblproduct` (`PROID`, `PRODESC`, `INGREDIENTS`, `PROQTY`, `ORIGINALPRICE`, `PROPRICE`, `CATEGID`, `IMAGES`, `PROSTATS`, `OWNERNAME`, `OWNERPHONE`) VALUES
-(201737, 'KILY Korean Casual Sleeveless Dress Printed Dress 5a0019                      ', '', 5, 100, 119, 12, 'uploaded_photos/korean.jpeg', 'Available', 'janobe', ''),
-(201738, 'terno top and pants korean fashion boho terno summer terno for women  ', '', 3, 150, 199, 12, 'uploaded_photos/terno.jpg', 'Available', 'janobe', ''),
-(201739, '4Color Menâ€²S Denim Pants STRETCHABLE Skinny Black/Blue', '', 5, 250, 289, 18, 'uploaded_photos/jeans.jpg', 'Available', 'janobe', ''),
-(201740, 'SIMPLE Fashion Men`S Casual T Shirt Short Sleeve Round neck Top', '', 1, 100, 149, 18, 'uploaded_photos/shirt.jpg', 'Available', 'janobe', ''),
-(201741, 'ICM #T146 BESTSELLER TOPS TSHIRT FOR MEN', '', 4, 50, 89, 18, 'uploaded_photos/shirt2.jpg', 'Available', 'janobe', ''),
-(201742, 'CJY-001 Coat Rack Creative Simple CoatRack Bedroom Wardrobe (Gray)', '', 4, 250, 287, 14, 'uploaded_photos/bed.jpeg', 'Available', 'janobe', '');
+(201737, 'boeuf Wellington, Mousseline de Pomme de Terre,\r\nLegumes Sautes et Jus Court a La Creme de Truffe', '', 5, 100, 119, 11, 'uploaded_photos/boeuf.jpg', 'Available', 'gargoury', ''),
+(201738, 'Effiloche de Chair de Crabe, Avocat et Mandarine, Condiment de Lait de Coco et Citron', '', 3, 150, 199, 12, 'uploaded_photos/effiloche.jpg', 'Available', 'gargoury', ''),
+(201739, 'Canard Roti,  Mhamsa  aux Herbes et a la Tomate Sechee facon Risotto et sa Sauce a l Orange', '', 5, 250, 289, 1, 'uploaded_photos/canard.jpg', 'Available', 'janobe', ''),
+(201740, 'Langouste Rotie, Legumes Glacees, Puree de Pomme de Terre et Amendes Effilees et sa Sauce Americaine', '', 1, 100, 149, 5, 'uploaded_photos/langouste.jpg', 'Available', 'janobe', ''),
+(201741, 'Filet de Loup Snacke,  Borghol  Forestier et sa Sauce Facon  Kabkabou ', '', 4, 50, 89, 5, 'uploaded_photos/filet.jpg', 'Available', 'janobe', ''),
+(201742, 'Carpaccio de Poulpe a La Creme de Truffe', '', 4, 250, 287, 5, 'uploaded_photos/carpaccio.jpg', 'Available', 'janobe', '');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tblpromopro`
+-- Structure de la table `tblpromopro`
 --
 
-CREATE TABLE `tblpromopro` (
-  `PROMOID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `tblpromopro`;
+CREATE TABLE IF NOT EXISTS `tblpromopro` (
+  `PROMOID` int(11) NOT NULL AUTO_INCREMENT,
   `PROID` int(11) NOT NULL,
   `PRODISCOUNT` double NOT NULL,
   `PRODISPRICE` double NOT NULL,
   `PROBANNER` tinyint(4) NOT NULL,
-  `PRONEW` tinyint(4) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `PRONEW` tinyint(4) NOT NULL,
+  PRIMARY KEY (`PROMOID`),
+  UNIQUE KEY `PROID` (`PROID`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tblpromopro`
+-- Déchargement des données de la table `tblpromopro`
 --
 
 INSERT INTO `tblpromopro` (`PROMOID`, `PROID`, `PRODISCOUNT`, `PRODISPRICE`, `PROBANNER`, `PRONEW`) VALUES
@@ -318,18 +338,20 @@ INSERT INTO `tblpromopro` (`PROMOID`, `PROID`, `PRODISCOUNT`, `PRODISPRICE`, `PR
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tblsetting`
+-- Structure de la table `tblsetting`
 --
 
-CREATE TABLE `tblsetting` (
-  `SETTINGID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `tblsetting`;
+CREATE TABLE IF NOT EXISTS `tblsetting` (
+  `SETTINGID` int(11) NOT NULL AUTO_INCREMENT,
   `PLACE` text NOT NULL,
   `BRGY` varchar(90) NOT NULL,
-  `DELPRICE` double NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `DELPRICE` double NOT NULL,
+  PRIMARY KEY (`SETTINGID`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tblsetting`
+-- Déchargement des données de la table `tblsetting`
 --
 
 INSERT INTO `tblsetting` (`SETTINGID`, `PLACE`, `BRGY`, `DELPRICE`) VALUES
@@ -339,26 +361,31 @@ INSERT INTO `tblsetting` (`SETTINGID`, `PLACE`, `BRGY`, `DELPRICE`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tblstockin`
+-- Structure de la table `tblstockin`
 --
 
-CREATE TABLE `tblstockin` (
-  `STOCKINID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `tblstockin`;
+CREATE TABLE IF NOT EXISTS `tblstockin` (
+  `STOCKINID` int(11) NOT NULL AUTO_INCREMENT,
   `STOCKDATE` datetime DEFAULT NULL,
   `PROID` int(11) DEFAULT NULL,
   `STOCKQTY` int(11) DEFAULT NULL,
   `STOCKPRICE` double DEFAULT NULL,
-  `USERID` int(11) DEFAULT NULL
+  `USERID` int(11) DEFAULT NULL,
+  PRIMARY KEY (`STOCKINID`),
+  KEY `PROID` (`PROID`,`USERID`),
+  KEY `USERID` (`USERID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tblsummary`
+-- Structure de la table `tblsummary`
 --
 
-CREATE TABLE `tblsummary` (
-  `SUMMARYID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `tblsummary`;
+CREATE TABLE IF NOT EXISTS `tblsummary` (
+  `SUMMARYID` int(11) NOT NULL AUTO_INCREMENT,
   `ORDEREDDATE` datetime NOT NULL,
   `CUSTOMERID` int(11) NOT NULL,
   `ORDEREDNUM` int(11) NOT NULL,
@@ -369,243 +396,70 @@ CREATE TABLE `tblsummary` (
   `ORDEREDREMARKS` varchar(125) NOT NULL,
   `CLAIMEDADTE` datetime NOT NULL,
   `HVIEW` tinyint(4) NOT NULL,
-  `USERID` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `USERID` int(11) NOT NULL,
+  PRIMARY KEY (`SUMMARYID`),
+  UNIQUE KEY `ORDEREDNUM` (`ORDEREDNUM`),
+  KEY `CUSTOMERID` (`CUSTOMERID`),
+  KEY `USERID` (`USERID`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tblsummary`
+-- Déchargement des données de la table `tblsummary`
 --
 
 INSERT INTO `tblsummary` (`SUMMARYID`, `ORDEREDDATE`, `CUSTOMERID`, `ORDEREDNUM`, `DELFEE`, `PAYMENT`, `PAYMENTMETHOD`, `ORDEREDSTATS`, `ORDEREDREMARKS`, `CLAIMEDADTE`, `HVIEW`, `USERID`) VALUES
-(1, '2019-08-21 06:24:24', 9, 93, 0, 0, 'Cash on Delivery', 'Pending', 'Your order is on process.', '0000-00-00 00:00:00', 1, 0),
-(3, '2019-08-21 06:27:09', 9, 94, 70, 269, 'Cash on Delivery', 'Confirmed', 'Your order has been confirmed.', '2019-08-21 00:00:00', 1, 0);
+(1, '2019-08-21 06:24:24', 9, 93, 0, 0, 'Cash on Delivery', 'Confirmed', 'Your order has been confirmed.', '2019-11-28 00:00:00', 0, 0),
+(3, '2019-08-21 06:27:09', 9, 94, 70, 269, 'Cash on Delivery', 'Confirmed', 'Your order has been confirmed.', '2019-08-21 00:00:00', 1, 0),
+(5, '2019-08-21 06:24:24', 9, 100, 0, 0, 'Cash on Delivery', 'Pending', 'Your order is on process.', '2019-11-24 00:00:00', 1, 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbluseraccount`
+-- Structure de la table `tbluseraccount`
 --
 
-CREATE TABLE `tbluseraccount` (
-  `USERID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `tbluseraccount`;
+CREATE TABLE IF NOT EXISTS `tbluseraccount` (
+  `USERID` int(11) NOT NULL AUTO_INCREMENT,
   `U_NAME` varchar(122) NOT NULL,
   `U_USERNAME` varchar(122) NOT NULL,
   `U_PASS` varchar(122) NOT NULL,
   `U_ROLE` varchar(30) NOT NULL,
-  `USERIMAGE` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `USERIMAGE` varchar(255) NOT NULL,
+  PRIMARY KEY (`USERID`)
+) ENGINE=InnoDB AUTO_INCREMENT=128 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tbluseraccount`
+-- Déchargement des données de la table `tbluseraccount`
 --
 
 INSERT INTO `tbluseraccount` (`USERID`, `U_NAME`, `U_USERNAME`, `U_PASS`, `U_ROLE`, `USERIMAGE`) VALUES
 (124, 'Kenjie Palacios', 'kenjie', '4752fe635442d048e8e8d2d1d845e6a578f30470', 'Administrator', 'photos/COC-war-base-design.jpg'),
-(126, 'Janobe Palacios', 'janobe', 'd033e22ae348aeb5660fc2140aec35850c4da997', 'Administrator', 'photos/10329236_874204835938922_6636897990257224477_n.jpg'),
+(126, 'Mehdi Feki', 'Mehdi', '7c8b06e7fb6880cf6bcee55b6cbd343254bf5974', 'Administrator', 'photos/10329236_874204835938922_6636897990257224477_n.jpg'),
 (127, 'Craig Palacios', 'craig', 'd033e22ae348aeb5660fc2140aec35850c4da997', 'Administrator', '');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tblwishlist`
+-- Structure de la table `tblwishlist`
 --
 
-CREATE TABLE `tblwishlist` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `tblwishlist`;
+CREATE TABLE IF NOT EXISTS `tblwishlist` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `CUSID` int(11) NOT NULL,
   `PROID` int(11) NOT NULL,
   `WISHDATE` date NOT NULL,
-  `WISHSTATS` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `WISHSTATS` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tblwishlist`
+-- Déchargement des données de la table `tblwishlist`
 --
 
 INSERT INTO `tblwishlist` (`id`, `CUSID`, `PROID`, `WISHDATE`, `WISHSTATS`) VALUES
 (2, 9, 201742, '2019-08-21', '0');
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `messagein`
---
-ALTER TABLE `messagein`
-  ADD PRIMARY KEY (`Id`);
-
---
--- Indexes for table `messagelog`
---
-ALTER TABLE `messagelog`
-  ADD PRIMARY KEY (`Id`),
-  ADD KEY `IDX_MessageId` (`MessageId`,`SendTime`);
-
---
--- Indexes for table `messageout`
---
-ALTER TABLE `messageout`
-  ADD PRIMARY KEY (`Id`),
-  ADD KEY `IDX_IsRead` (`IsRead`);
-
---
--- Indexes for table `tblautonumber`
---
-ALTER TABLE `tblautonumber`
-  ADD PRIMARY KEY (`ID`);
-
---
--- Indexes for table `tblcategory`
---
-ALTER TABLE `tblcategory`
-  ADD PRIMARY KEY (`CATEGID`);
-
---
--- Indexes for table `tblcustomer`
---
-ALTER TABLE `tblcustomer`
-  ADD PRIMARY KEY (`CUSTOMERID`);
-
---
--- Indexes for table `tblorder`
---
-ALTER TABLE `tblorder`
-  ADD PRIMARY KEY (`ORDERID`),
-  ADD KEY `USERID` (`USERID`),
-  ADD KEY `PROID` (`PROID`),
-  ADD KEY `ORDEREDNUM` (`ORDEREDNUM`);
-
---
--- Indexes for table `tblproduct`
---
-ALTER TABLE `tblproduct`
-  ADD PRIMARY KEY (`PROID`),
-  ADD KEY `CATEGID` (`CATEGID`);
-
---
--- Indexes for table `tblpromopro`
---
-ALTER TABLE `tblpromopro`
-  ADD PRIMARY KEY (`PROMOID`),
-  ADD UNIQUE KEY `PROID` (`PROID`);
-
---
--- Indexes for table `tblsetting`
---
-ALTER TABLE `tblsetting`
-  ADD PRIMARY KEY (`SETTINGID`);
-
---
--- Indexes for table `tblstockin`
---
-ALTER TABLE `tblstockin`
-  ADD PRIMARY KEY (`STOCKINID`),
-  ADD KEY `PROID` (`PROID`,`USERID`),
-  ADD KEY `USERID` (`USERID`);
-
---
--- Indexes for table `tblsummary`
---
-ALTER TABLE `tblsummary`
-  ADD PRIMARY KEY (`SUMMARYID`),
-  ADD UNIQUE KEY `ORDEREDNUM` (`ORDEREDNUM`),
-  ADD KEY `CUSTOMERID` (`CUSTOMERID`),
-  ADD KEY `USERID` (`USERID`);
-
---
--- Indexes for table `tbluseraccount`
---
-ALTER TABLE `tbluseraccount`
-  ADD PRIMARY KEY (`USERID`);
-
---
--- Indexes for table `tblwishlist`
---
-ALTER TABLE `tblwishlist`
-  ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `messagein`
---
-ALTER TABLE `messagein`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT for table `messagelog`
---
-ALTER TABLE `messagelog`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
-
---
--- AUTO_INCREMENT for table `messageout`
---
-ALTER TABLE `messageout`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `tblautonumber`
---
-ALTER TABLE `tblautonumber`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `tblcategory`
---
-ALTER TABLE `tblcategory`
-  MODIFY `CATEGID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
-
---
--- AUTO_INCREMENT for table `tblcustomer`
---
-ALTER TABLE `tblcustomer`
-  MODIFY `CUSTOMERID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
---
--- AUTO_INCREMENT for table `tblorder`
---
-ALTER TABLE `tblorder`
-  MODIFY `ORDERID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `tblpromopro`
---
-ALTER TABLE `tblpromopro`
-  MODIFY `PROMOID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT for table `tblsetting`
---
-ALTER TABLE `tblsetting`
-  MODIFY `SETTINGID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `tblstockin`
---
-ALTER TABLE `tblstockin`
-  MODIFY `STOCKINID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT for table `tblsummary`
---
-ALTER TABLE `tblsummary`
-  MODIFY `SUMMARYID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `tbluseraccount`
---
-ALTER TABLE `tbluseraccount`
-  MODIFY `USERID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=128;
-
---
--- AUTO_INCREMENT for table `tblwishlist`
---
-ALTER TABLE `tblwishlist`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

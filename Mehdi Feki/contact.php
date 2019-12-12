@@ -1,3 +1,7 @@
+<section class="most_popular_item_area" >
+         
+         </section>
+ 
  <div id="contact-page" class="container">
         <div class="bg">
             <div class="row">           
